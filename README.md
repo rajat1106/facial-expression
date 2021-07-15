@@ -1,2 +1,2 @@
 # facial-expression
-Data was taken from : https://www.kaggle.com/msambare/fer2013
+Download the data from : https://www.kaggle.com/msambare/fer2013
