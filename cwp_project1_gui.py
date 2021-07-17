@@ -22,7 +22,7 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.python.keras.layers import MaxPooling2D
 from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
 import threading
-os.environ['TF_XLA_FLAGS'] = '--tf_xla_enable_xla_devices'
+# os.environ['TF_XLA_FLAGS'] = '--tf_xla_enable_xla_devices'
 
 #making model using squential and adding layers
 emotion_model = Sequential()
@@ -60,7 +60,8 @@ global frame_number
 
 #video processing function
 def show_subject():      
-    cap1 = cv2.VideoCapture(r'D:\Visual Studio\cwp_project\WIN_20210712_16_26_48_Pro.mp4')    #to open our video/webcam                             
+    cap1 = cv2.VideoCapture(-1)    #to open our video/webcam       
+    ret, frame = cap1.read()                      
     if not cap1.isOpened():                             
         print("cant open the camera1")
     global frame_number
@@ -71,7 +72,7 @@ def show_subject():
     cap1.set(1,frame_number)
     flag1, frame1 = cap1.read()     #flag1 tells us if we reading soemthing or not  and frame1 is an array btowh would be returned by read() function 
     frame1 = cv2.resize (frame1,(600,500)) #resizing the camera
-    bounding_box = cv2.CascadeClassifier('C:/Users/rajat/AppData/Local/Programs/Python/Python39/Lib/site-packages/cv2/data/haarcascade_frontalface_default.xml')
+    bounding_box = cv2.CascadeClassifier('./data/haarcascade_frontalface_default.xml')
     gray_frame = cv2.cvtColor(frame1, cv2.COLOR_BGR2GRAY)
     num_faces = bounding_box.detectMultiScale(gray_frame,scaleFactor =1.3 ,minNeighbors = 5)
     for(x,y,w,h) in num_faces:
